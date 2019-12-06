@@ -1,0 +1,31 @@
+# Below are the simple few steps to upgrade your Nagios server to latest version 4.4.1
+# It is always recommended to have the latest full backup of your Nagios server before performing any change.
+
+> Stop the nagios and apache service
+MyLinuxServer#    service nagios stop
+MyLinuxServer#    service httpd stop
+
+> Take backup of your current config in case of any unexpected
+MyLinuxServer#    mkdir /tmp/nagios_backup
+MyLinuxServer#    tar -cvvzf /tmp/nagios_backup/nagios_bkp.tar /usr/local/nagios
+
+> Download the latest version of Nagios 4.4.1 to local machine
+MyLinuxServer#    wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.1.tar.gz
+
+> Unzip the installation folder
+MyLinuxServer#    tar -zxvf nagios-4.4.1.tar.gz
+MyLinuxServer#    cd nagios-4.4.1/
+
+> Compile and install
+MyLinuxServer#    ./configure --with-command-group=nagcmd
+MyLinuxServer#    make all
+MyLinuxServer#    make install
+
+> Verify the installation
+MyLinuxServer#    /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+> Restart the Nagios and Apache services
+MyLinuxServer#    service nagios restart
+MyLinuxServer#    service httpd restart
+
+======================XXXXXXXXXXXXXXXXX====================
